@@ -1,5 +1,5 @@
 '''documentation: http://chrisstrelioff.ws/sandbox/2015/06/08/decision_trees_in_python_with_scikit_learn_and_pandas.html'''
-
+from __future__ import print_function
 import os
 import subprocess
 import pandas as pd
@@ -14,7 +14,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, roc_curve, auc
 from sklearn.ensemble import RandomForestClassifier
-from __future__ import print_function
+
 
 # get data from absolute path
 def get_data():
