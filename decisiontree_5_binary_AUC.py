@@ -1,5 +1,6 @@
 '''documentation: http://chrisstrelioff.ws/sandbox/2015/06/08/decision_trees_in_python_with_scikit_learn_and_pandas.html'''
 from __future__ import print_function
+import pickle
 import os
 import subprocess
 import pandas as pd
@@ -121,3 +122,7 @@ for rel in range(6):
 	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
+with open("final_models.p", "w") as f:
+	pickle.dump(models, f)
+
+# models = pickle.load(open("final_models.p"))
