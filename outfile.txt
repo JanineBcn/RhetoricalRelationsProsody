@@ -1,0 +1,124 @@
+* df.head()
+           parent_rel_EDU1  starttime_EDU1  endtime_EDU1  parent.id_EDU1  \
+0  elaboration_LeftToRight           19.34         19.82               7   
+1  elaboration_LeftToRight           35.48         39.12              20   
+2  attribution_RightToLeft           45.03         45.84              25   
+3                    joint           55.95         59.03              32   
+4                    joint           61.63         63.13              36   
+
+  spk_EDU1         conv_EDU1  mean.normF0_EDU1  sd.normF0_EDU1  \
+0       CB  ChrisBangle_2002         -0.842319        1.428860   
+1       CB  ChrisBangle_2002         -2.711288        3.689195   
+2       CB  ChrisBangle_2002        -16.507521        1.718608   
+3       CB  ChrisBangle_2002         -2.365792        3.621641   
+4       CB  ChrisBangle_2002         -3.675691        1.394828   
+
+   max.normF0_EDU1  min.normF0_EDU1            ...             \
+0         1.859093        -3.611411            ...              
+1         9.601396        -7.485183            ...              
+2       -13.117452       -19.410235            ...              
+3         5.278518       -10.556386            ...              
+4        -1.129534        -7.366172            ...              
+
+   pdiff.range.normF0_EDU2  range.normI0_EDU2  ndiff.range.normI0_EDU2  \
+0                -3.528519          22.352123                 8.422465   
+1                11.675075          26.512005                 0.794475   
+2               -13.415636          24.950188                 1.244150   
+3                -3.357805          32.403766               -13.427149   
+4                -2.570832          23.287260                -7.988705   
+
+   pdiff.range.normI0_EDU2  pfdiff.range.normF0_EDU2  \
+0               -11.173110                 -3.662934   
+1                -3.152621                 -3.931338   
+2                -3.144747                 -0.519312   
+3                -4.137891                  3.437190   
+4                -4.310643                 -3.762864   
+
+   fldiff.range.normF0_EDU2  lndiff.range.normF0_EDU2  \
+0                  4.973493                 -4.155410   
+1                  0.166256                 -0.272419   
+2                  3.251319                 -5.707492   
+3                  3.571642                 -8.048487   
+4                  2.807589                 -3.214291   
+
+   pfdiff.range.normI0_EDU2  fldiff.range.normI0_EDU2  \
+0                 14.865824                 -0.939365   
+1                -16.571905                 14.755618   
+2                  0.247930                  8.791237   
+3                 -6.525274                  9.363906   
+4                 -6.340165                 11.752790   
+
+   lndiff.range.normI0_EDU2  
+0                -11.142693  
+1                  9.327263  
+2                -23.419328  
+3                -14.715868  
+4                -14.228579  
+
+[5 rows x 232 columns]
+
+* df.head()
+           parent_rel_EDU1  starttime_EDU1  endtime_EDU1  parent.id_EDU1  \
+0  elaboration_LeftToRight           19.34         19.82               7   
+1  elaboration_LeftToRight           35.48         39.12              20   
+2  attribution_RightToLeft           45.03         45.84              25   
+3                    joint           55.95         59.03              32   
+4                    joint           61.63         63.13              36   
+
+  spk_EDU1         conv_EDU1  mean.normF0_EDU1  sd.normF0_EDU1  \
+0       CB  ChrisBangle_2002         -0.842319        1.428860   
+1       CB  ChrisBangle_2002         -2.711288        3.689195   
+2       CB  ChrisBangle_2002        -16.507521        1.718608   
+3       CB  ChrisBangle_2002         -2.365792        3.621641   
+4       CB  ChrisBangle_2002         -3.675691        1.394828   
+
+   max.normF0_EDU1  min.normF0_EDU1            ...             \
+0         1.859093        -3.611411            ...              
+1         9.601396        -7.485183            ...              
+2       -13.117452       -19.410235            ...              
+3         5.278518       -10.556386            ...              
+4        -1.129534        -7.366172            ...              
+
+   pdiff.range.normF0_EDU2  range.normI0_EDU2  ndiff.range.normI0_EDU2  \
+0                -3.528519          22.352123                 8.422465   
+1                11.675075          26.512005                 0.794475   
+2               -13.415636          24.950188                 1.244150   
+3                -3.357805          32.403766               -13.427149   
+4                -2.570832          23.287260                -7.988705   
+
+   pdiff.range.normI0_EDU2  pfdiff.range.normF0_EDU2  \
+0               -11.173110                 -3.662934   
+1                -3.152621                 -3.931338   
+2                -3.144747                 -0.519312   
+3                -4.137891                  3.437190   
+4                -4.310643                 -3.762864   
+
+   fldiff.range.normF0_EDU2  lndiff.range.normF0_EDU2  \
+0                  4.973493                 -4.155410   
+1                  0.166256                 -0.272419   
+2                  3.251319                 -5.707492   
+3                  3.571642                 -8.048487   
+4                  2.807589                 -3.214291   
+
+   pfdiff.range.normI0_EDU2  fldiff.range.normI0_EDU2  \
+0                 14.865824                 -0.939365   
+1                -16.571905                 14.755618   
+2                  0.247930                  8.791237   
+3                 -6.525274                  9.363906   
+4                 -6.340165                 11.752790   
+
+   lndiff.range.normI0_EDU2  
+0                -11.142693  
+1                  9.327263  
+2                -23.419328  
+3                -14.715868  
+4                -14.228579  
+
+[5 rows x 232 columns]
+
+* relation types:
+['elaboration_LeftToRight' 'attribution_RightToLeft' 'joint' 'contrast'
+ 'condition_RightToLeft' 'background_LeftToRight' 'enablement_LeftToRight'
+ 'attribution_LeftToRight' 'same-unit' 'background_RightToLeft'
+ 'contrast_RightToLeft' 'explanation_LeftToRight' 'contrast_LeftToRight'
+ 'temporal' 'manner-means_LeftToRight']

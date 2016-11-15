@@ -1,0 +1,23 @@
+clf.best_score_ # to get best score
+clf.best_score_ # to get best parameters 
+clf.decision_function # ??
+clf.best_estimator_.feature_importances_() # what features were important
+fi = clf.best_estimator_.feature_importances_ # save important features to fi
+fi.shape # see dimensions of matrix, e.g. [123, 43]
+sorted([(fi[e], X.columns[e]) for e in range(len(fi))]) # list import features and sort them
+sorted(X.columns.values) # get names of columns, sorted
+fi = models[3].best_estimator_.feature_importances_ # acceder ciertas relaciones, que pertenecen a un número de 0 a 5.
+models[3].best_score_ # best score de uno de esos
+
+
+
+* targets
+0: 'elaboration_LeftToRight' 
+1: 'attribution_RightToLeft'
+2: 'attribution_LeftToRight'
+3: 'condition_RightToLeft'
+4: 'background_LeftToRight'
+5: 'condition_LeftToRight'
+6: 'explanation_LeftToRight']
+
+
