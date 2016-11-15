@@ -21,3 +21,10 @@ models[3].best_score_ # best score de uno de esos
 6: 'explanation_LeftToRight']
 
 
+
+
+
+
+
+
+ssh jkleinhans@jupiter.liaa.inv.dc.uba.ar

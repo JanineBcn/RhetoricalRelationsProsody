@@ -18,7 +18,7 @@ from __future__ import print_function
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('/home/janine/Documents/phd/ted/Classification/final_matriz.csv', index_col=0)
+	df = pd.read_csv('data/final_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
@@ -118,6 +118,6 @@ for rel in range(6):
 	param_grid = {"n_estimators": [500, 1000], "max_features": [20, 30, 40], "criterion": ["entropy", "gini"], "n_jobs": [-1]}
 
 	# Chose model 
-	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=3, scoring='roc_auc', verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
