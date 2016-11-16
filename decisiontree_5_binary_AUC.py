@@ -19,7 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/test_matriz.csv', index_col=0)
+	df = pd.read_csv('data/final_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
@@ -119,7 +119,7 @@ for rel in range(6):
 	param_dist = {"n_estimators": range(30, 1000), "max_features": [30, 40], "criterion": ["entropy", "gini"], "n_jobs": [-1]}
 
 	# Chose model 
-	models[rel] = RandomizedSearchCV(RandomForestClassifier(), param_distributions=param_dist, cv=3, scoring='roc_auc', n_iter=2000, verbose = 3)
+	models[rel] = RandomizedSearchCV(RandomForestClassifier(), param_distributions=param_dist, cv=10, scoring='roc_auc', n_iter=2000, verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
 with open("final_models.p", "w") as f:
