@@ -119,7 +119,7 @@ for rel in range(6):
 	param_grid = {"n_estimators": range(30, 1000), "max_features": [30, 40], "criterion": ["entropy", "gini"], "n_jobs": [-1]}
 
 	# Chose model 
-	models[rel] = RandomizedSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', n_iters=2000, verbose = 3)
+	models[rel] = RandomizedSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', n_iter=2000, verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
 with open("final_models.p", "w") as f:
