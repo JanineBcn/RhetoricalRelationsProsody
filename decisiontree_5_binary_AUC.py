@@ -10,7 +10,7 @@ from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from IPython.display import Image
 from sklearn.externals.six import StringIO
-from sklearn.grid_search import GridSearchCV
+from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, roc_curve, auc
@@ -116,10 +116,10 @@ for rel in range(6):
 	# Split into training and test set (e.g., 80/20)
 	X_train, X_test, y_train, y_test = train_test_split(X, y_target_binary, test_size=0.2, random_state=0)
 
-	param_grid = {"n_estimators": [500, 1000], "max_features": [20, 30, 40], "criterion": ["entropy", "gini"], "n_jobs": [-1]}
+	param_grid = {"n_estimators": range(30, 1000), "max_features": [30, 40], "criterion": ["entropy", "gini"], "n_jobs": [-1]}
 
 	# Chose model 
-	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+	models[rel] = RandomizedSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', n_iters=2000, verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
 with open("final_models.p", "w") as f:
