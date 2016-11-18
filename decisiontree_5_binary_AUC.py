@@ -116,10 +116,10 @@ for rel in range(6):
 	# Split into training and test set (e.g., 80/20)
 	X_train, X_test, y_train, y_test = train_test_split(X, y_target_binary, test_size=0.2, random_state=0)
 
-	param_dist = {"n_estimators": range(30, 1000), "max_features": [30, 40], "criterion": ["entropy", "gini"], "n_jobs": [-1]}
+	param_grid = {"n_estimators":[500], "max_features": [30, 50], "criterion": ["entropy"], "n_jobs": [-1]}
 
 	# Chose model 
-	models[rel] = RandomizedSearchCV(RandomForestClassifier(), param_distributions=param_dist, cv=10, scoring='roc_auc', n_iter=2000, verbose = 3)
+	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
 with open("final_models.p", "w") as f:
