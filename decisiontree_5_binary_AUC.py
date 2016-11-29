@@ -19,7 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/final_matriz.csv', index_col=0)
+	df = pd.read_csv('data/small_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
@@ -33,6 +33,7 @@ print('* relation types:', df['parent_rel_EDU1'].unique(), sep='\n')
 
 # delete unnecessary columns with strings and other irrelevant information
 del df['spk_EDU1']
+
 del df['conv_EDU1']
 del df['parent_rel_EDU2']
 del df['spk_EDU2']
@@ -83,28 +84,15 @@ features.remove('Target')
 y = df2['Target'] #target
 X = df2[features] #data
 
+total = y.shape[0]
+print(y.value_counts())
+for i in y.value_counts():
+	print(100*(float(i)/float(total)))
+
 # take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
 df_elab = df2.copy()
 df_elab['Elaboration'] = (y == 0)
 y_elab = df_elab['Elaboration'] # y_elab = vector with binary labels (1 for elab., 0 for other)
-
-# Split into training and test set (e.g., 80/20)
-# X_train, X_test, y_train, y_test = train_test_split(X, y_elab, test_size=0.2, random_state=0)
-
-# param_grid = {"max_depth": [20,25], "max_features": [60,70,80], "min_samples_split": [3,4], "criterion": ["gini", "entropy"]}
-
-# param_grid = {"n_estimators": [500], "max_features": [20, 30], "criterion": ["entropy"], "n_jobs": [-1]}
-
-# Chose model 
-# clf = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=3, scoring='roc_auc', verbose = 3)
-# clf.fit(X,y_elab)
-
-# Calculate AUC score
-# fp_rate, tp_rate, thresholds = roc_curve(y_elab, clf.predict_proba(X)[:,1])
-# print(auc(fp_rate, tp_rate))
-# 0.569628587484
-# print(roc_auc_score(y_elab, clf.predict_proba(X)[:,1]))
-# 0.569628587484
 
 models = {}
 for rel in range(6):
@@ -116,13 +104,13 @@ for rel in range(6):
 	# Split into training and test set (e.g., 80/20)
 	X_train, X_test, y_train, y_test = train_test_split(X, y_target_binary, test_size=0.2, random_state=0)
 
-	param_grid = {"n_estimators":[500], "max_features": [30, 50], "criterion": ["entropy"], "n_jobs": [-1]}
+	param_grid = {"n_estimators":[500], "max_features": [40, 60, 90], "criterion": ["entropy"], "n_jobs": [-1]}
 
 	# Chose model 
-	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=5, scoring='roc_auc', verbose = 3)
 	models[rel].fit(X, y_target_binary)
 
 with open("final_models.p", "w") as f:
 	pickle.dump(models, f)
 
-# models = pickle.load(open("final_models.p"))
+# models = pickle.load(open("final_models1.p"))
