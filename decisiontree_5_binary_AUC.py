@@ -19,7 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/test_matriz.csv', index_col=0)
+	df = pd.read_csv('data/test_matriz_10000.csv', index_col=0)
 	return df
 
 df = get_data()
