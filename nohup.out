@@ -1,0 +1,329 @@
+  File "decisiontree_5_binary_AUC.py", line 115
+SyntaxError: Non-ASCII character '\xc3' in file decisiontree_5_binary_AUC.py on line 115, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details
+/home/janine/.local/lib/python2.7/site-packages/sklearn/cross_validation.py:44: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+/home/janine/.local/lib/python2.7/site-packages/sklearn/grid_search.py:43: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. This module will be removed in 0.20.
+  DeprecationWarning)
+* df.head()
+           parent_rel_EDU1  starttime_EDU1  endtime_EDU1  parent.id_EDU1  \
+0  elaboration_LeftToRight            8.99         18.40               2   
+1  elaboration_LeftToRight           22.73         27.44               7   
+2                    joint           32.63         34.50              10   
+3   background_LeftToRight           43.63         44.64              16   
+4  explanation_LeftToRight           47.97         50.44              20   
+
+  spk_EDU1                conv_EDU1  mean.normF0_EDU1  sd.normF0_EDU1  \
+0      YAB  YannArthusBertrand_2009         -9.830995        7.088104   
+1      YAB  YannArthusBertrand_2009          3.607239        8.091198   
+2      YAB  YannArthusBertrand_2009         -0.283972        4.674812   
+3      YAB  YannArthusBertrand_2009          5.143795        4.045708   
+4      YAB  YannArthusBertrand_2009         -0.473808        2.792940   
+
+   max.normF0_EDU1  min.normF0_EDU1            ...             \
+0         3.551733       -19.293536            ...              
+1        15.462299       -15.549455            ...              
+2        10.416815        -7.432380            ...              
+3        12.693574        -0.994183            ...              
+4         5.219020        -6.987691            ...              
+
+   pdiff.range.normF0_EDU2  range.normI0_EDU2  ndiff.range.normI0_EDU2  \
+0                 5.321992          30.606800                 9.499995   
+1                 9.666740          26.583151                -2.483826   
+2                -7.543747          40.502408                -6.468637   
+3                -0.256590          25.351186                 0.360633   
+4                -4.778620          21.238641                19.830193   
+
+   pdiff.range.normI0_EDU2  pfdiff.range.normF0_EDU2  \
+0                 2.587343                 -1.521659   
+1                13.523643                  1.176913   
+2               -16.403083                -14.395923   
+3                -1.245135                  1.105593   
+4                 4.473177                 -1.489681   
+
+   fldiff.range.normF0_EDU2  lndiff.range.normF0_EDU2  \
+0                  2.925040                 -4.717023   
+1                  4.902021                 -9.782019   
+2                  1.460743                 -3.418490   
+3                  0.027553                 -1.051434   
+4                  4.058775                  7.072006   
+
+   pfdiff.range.normI0_EDU2  fldiff.range.normI0_EDU2  \
+0                -20.945794                 16.834522   
+1                -18.631601                  8.431837   
+2                  2.457136                -21.787161   
+3                -19.937556                 16.110321   
+4                  0.915846                 -0.450275   
+
+   lndiff.range.normI0_EDU2  
+0                -17.613665  
+1                -21.714131  
+2                 28.642709  
+3                 -1.638474  
+4                  3.276311  
+
+[5 rows x 232 columns]
+
+* df.head()
+           parent_rel_EDU1  starttime_EDU1  endtime_EDU1  parent.id_EDU1  \
+0  elaboration_LeftToRight            8.99         18.40               2   
+1  elaboration_LeftToRight           22.73         27.44               7   
+2                    joint           32.63         34.50              10   
+3   background_LeftToRight           43.63         44.64              16   
+4  explanation_LeftToRight           47.97         50.44              20   
+
+  spk_EDU1                conv_EDU1  mean.normF0_EDU1  sd.normF0_EDU1  \
+0      YAB  YannArthusBertrand_2009         -9.830995        7.088104   
+1      YAB  YannArthusBertrand_2009          3.607239        8.091198   
+2      YAB  YannArthusBertrand_2009         -0.283972        4.674812   
+3      YAB  YannArthusBertrand_2009          5.143795        4.045708   
+4      YAB  YannArthusBertrand_2009         -0.473808        2.792940   
+
+   max.normF0_EDU1  min.normF0_EDU1            ...             \
+0         3.551733       -19.293536            ...              
+1        15.462299       -15.549455            ...              
+2        10.416815        -7.432380            ...              
+3        12.693574        -0.994183            ...              
+4         5.219020        -6.987691            ...              
+
+   pdiff.range.normF0_EDU2  range.normI0_EDU2  ndiff.range.normI0_EDU2  \
+0                 5.321992          30.606800                 9.499995   
+1                 9.666740          26.583151                -2.483826   
+2                -7.543747          40.502408                -6.468637   
+3                -0.256590          25.351186                 0.360633   
+4                -4.778620          21.238641                19.830193   
+
+   pdiff.range.normI0_EDU2  pfdiff.range.normF0_EDU2  \
+0                 2.587343                 -1.521659   
+1                13.523643                  1.176913   
+2               -16.403083                -14.395923   
+3                -1.245135                  1.105593   
+4                 4.473177                 -1.489681   
+
+   fldiff.range.normF0_EDU2  lndiff.range.normF0_EDU2  \
+0                  2.925040                 -4.717023   
+1                  4.902021                 -9.782019   
+2                  1.460743                 -3.418490   
+3                  0.027553                 -1.051434   
+4                  4.058775                  7.072006   
+
+   pfdiff.range.normI0_EDU2  fldiff.range.normI0_EDU2  \
+0                -20.945794                 16.834522   
+1                -18.631601                  8.431837   
+2                  2.457136                -21.787161   
+3                -19.937556                 16.110321   
+4                  0.915846                 -0.450275   
+
+   lndiff.range.normI0_EDU2  
+0                -17.613665  
+1                -21.714131  
+2                 28.642709  
+3                 -1.638474  
+4                  3.276311  
+
+[5 rows x 232 columns]
+
+* relation types:
+['elaboration_LeftToRight' 'joint' 'background_LeftToRight'
+ 'explanation_LeftToRight' 'contrast' 'comparison_LeftToRight'
+ 'cause_LeftToRight' 'background_RightToLeft' 'attribution_RightToLeft'
+ 'manner-means_LeftToRight' 'condition_LeftToRight'
+ 'attribution_LeftToRight' 'condition_RightToLeft' 'enablement_LeftToRight'
+ 'contrast_LeftToRight' 'contrast_RightToLeft' 'same-unit'
+ 'temporal_LeftToRight' 'topic-comment' 'temporal' 'temporal_RightToLeft'
+ 'evaluation_LeftToRight' 'enablement_RightToLeft' 'summary_LeftToRight'
+ 'comparison' 'manner-means_RightToLeft' 'comparison_RightToLeft']
+* df2.head()
+   Target          parent_rel_EDU1
+0       0  elaboration_LeftToRight
+1       0  elaboration_LeftToRight
+2       1                    joint
+3       2   background_LeftToRight
+4       3  explanation_LeftToRight
+
+* df2.tail()
+    Target          parent_rel_EDU1
+33       8  attribution_RightToLeft
+34      13   enablement_LeftToRight
+35       0  elaboration_LeftToRight
+36       0  elaboration_LeftToRight
+37       0  elaboration_LeftToRight
+
+* targets
+['elaboration_LeftToRight' 'joint' 'background_LeftToRight'
+ 'explanation_LeftToRight' 'contrast' 'comparison_LeftToRight'
+ 'cause_LeftToRight' 'background_RightToLeft' 'attribution_RightToLeft'
+ 'manner-means_LeftToRight' 'condition_LeftToRight'
+ 'attribution_LeftToRight' 'condition_RightToLeft' 'enablement_LeftToRight'
+ 'contrast_LeftToRight' 'contrast_RightToLeft' 'same-unit'
+ 'temporal_LeftToRight' 'topic-comment' 'temporal' 'temporal_RightToLeft'
+ 'evaluation_LeftToRight' 'enablement_RightToLeft' 'summary_LeftToRight'
+ 'comparison' 'manner-means_RightToLeft' 'comparison_RightToLeft']
+
+0     3182
+8     1138
+1     1010
+11     274
+2      204
+13     180
+12     160
+3      140
+7      118
+15     117
+4       92
+10      76
+6       55
+9       51
+16      45
+5       38
+17      33
+19      32
+14      27
+18       5
+22       5
+24       5
+20       4
+21       3
+26       3
+23       1
+25       1
+Name: Target, dtype: int64
+45.4636376625
+16.2594656379
+14.4306329476
+3.91484497785
+2.9147021003
+2.57179597085
+2.28604086298
+2.00028575511
+1.68595513645
+1.67166738105
+1.31447349621
+1.08586940992
+0.78582654665
+0.728675525075
+0.642948992713
+0.542934704958
+0.47149592799
+0.4572081[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  1.7min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  3.9min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed: 1742.1min finished
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  3.7min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  7.4min remaining:    0.0s
+72596
+0.385769395628
+0.0714387769681
+0.0714387769681
+0.0714387769681
+0.0571510215745
+0.0428632661809
+0.0428632661809
+0.0142877553936
+0.0142877553936
+0
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.610117 - 1.7min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.601772 - 2.2min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.586309 -1654.0min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.621081 - 1.7min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.617759 - 2.6min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.606858 - 3.4min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.607816 - 3.9min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.585126 - 4.6min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.620160 - 5.7min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.616716 - 9.9min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.610733 -11.4min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.604699 -10.8min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.597553 -10.0min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.607734 -10.0min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.617796 -10.2min
+1
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.694210 - 3.7min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.669842 - 3.7min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.656534 - 3.7min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.730386 - 3.7min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.692133 - 3.7min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.689144 - 5.4min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.670416 - 5.3min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.661232 - 5.4min
+[CV[Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed: 80.1min finished
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  2.0min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  3.5min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed: 57.0min finished
+[Parallel(n_jobs=1)]: Done   1 out of   1 | elapsed:  2.2min remaining:    0.0s
+] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.722196 - 5.5min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.690433 - 5.4min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.699030 - 8.0min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.670464 - 9.4min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.657895 - 6.0min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.723824 - 5.9min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.687573 - 5.3min
+2
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.645668 - 2.0min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.586353 - 1.5min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.449209 - 2.1min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.594456 - 1.9min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.593911 - 2.0min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.643030 - 3.8min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.562761 - 3.8min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.460283 - 4.0min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.587035 - 3.7min
+[CV] max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=60, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.608131 - 3.9min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.624302 - 5.6min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.560033 - 5.6min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.445216 - 5.9min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.607970 - 5.5min
+[CV] max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=90, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.600294 - 5.7min
+3
+Fitting 5 folds for each of 3 candidates, totalling 15 fits
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.577272 - 2.2min
+[CV] max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy .
+[CV]  max_features=40, n_estimators=500, n_jobs=-1, criterion=entropy, score=0.583611 [Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:  4.4min remaining:    0.0s
+[Parallel(n_jobs=1)]: Done  15 out of  15 | elapsed: 561.8min finished
