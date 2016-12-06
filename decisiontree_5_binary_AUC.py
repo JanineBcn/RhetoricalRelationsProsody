@@ -19,7 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/final_matriz.csv', index_col=0)
+	df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
@@ -67,6 +67,13 @@ def encode_target(df, target_column):
 	df_mod['Target'] = df_mod[target_column].replace(map_to_int)
 	
 	return (df_mod, targets)
+#	0: 'elaboration_LeftToRight', 63.107
+#	1: 'attribution_RightToLeft', 20.563
+#	2: 'attribution_LeftToRight',  4.745
+#	3: 'condition_RightToLeft',    3.974
+#	4: 'background_LeftToRight',   3.548
+#	5: 'condition_LeftToRight',    2.457
+#	6: 'explanation_LeftToRight',  1.601
 
 # show name and target column
 df2, targets = encode_target(df, 'parent_rel_EDU1')
