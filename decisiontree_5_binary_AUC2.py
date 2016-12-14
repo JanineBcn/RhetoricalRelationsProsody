@@ -92,10 +92,16 @@ for i in y.value_counts():
 	print(100*(float(i)/float(total)))
 
 
+#array(['contrast', 'elaboration_LeftToRight', 'attribution_RightToLeft',
+#      'explanation_LeftToRight', 'attribution_LeftToRight',
+#      'enablement_LeftToRight', 'background_RightToLeft',
+#      'background_LeftToRight', 'contrast_RightToLeft',
+#      'condition_RightToLeft', 'manner-means_LeftToRight',
+#      'condition_LeftToRight'], dtype=object)
 
 
 # Binarize the output
-y = label_binarize(y, classes=[0,1,2,3,4,5])
+y = label_binarize(y, classes=[0,1,2,3,4,5,6,7,8,9,10,11])
 n_classes = y.shape[1]
 
 

@@ -15,6 +15,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, roc_curve, auc
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import label_binarize
 
 
 # get data from absolute path
@@ -67,13 +68,6 @@ def encode_target(df, target_column):
 	df_mod['Target'] = df_mod[target_column].replace(map_to_int)
 	
 	return (df_mod, targets)
-#	0: 'elaboration_LeftToRight', 63.107
-#	1: 'attribution_RightToLeft', 20.563
-#	2: 'attribution_LeftToRight',  4.745
-#	3: 'condition_RightToLeft',    3.974
-#	4: 'background_LeftToRight',   3.548
-#	5: 'condition_LeftToRight',    2.457
-#	6: 'explanation_LeftToRight',  1.601
 
 # show name and target column
 df2, targets = encode_target(df, 'parent_rel_EDU1')
@@ -96,28 +90,53 @@ print(y.value_counts())
 for i in y.value_counts():
 	print(100*(float(i)/float(total)))
 
-# take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
-df_elab = df2.copy()
-df_elab['Elaboration'] = (y == 0)
-y_elab = df_elab['Elaboration'] # y_elab = vector with binary labels (1 for elab., 0 for other)
 
-models = {}
-for rel in range(6):
-	print(rel)
-	# take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
-	df_elab = df2.copy()
-	y_target_binary = (y == rel)
-	
-	# Split into training and test set (e.g., 80/20)
-	X_train, X_test, y_train, y_test = train_test_split(X, y_target_binary, test_size=0.2, random_state=0)
+#array(['contrast', 'elaboration_LeftToRight', 'attribution_RightToLeft',
+#      'explanation_LeftToRight', 'attribution_LeftToRight',
+#      'enablement_LeftToRight', 'background_RightToLeft',
+#      'background_LeftToRight', 'contrast_RightToLeft',
+#      'condition_RightToLeft', 'manner-means_LeftToRight',
+#      'condition_LeftToRight'], dtype=object)
 
-	param_grid = {"n_estimators":[500], "max_features": [40], "criterion": ["entropy"], "n_jobs": [-1]}
 
-	# Chose model 
-	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
-	models[rel].fit(X, y_target_binary)
+# Binarize the output
+y = label_binarize(y, classes=[0,1,2,3,4,5,6,7,8,9,10,11])
+n_classes = y.shape[1]
+
+# Split into training and test set (e.g., 80/20)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+
+param_grid = {"n_estimators":[500], "max_features": [40], "criterion": ["entropy"], "n_jobs": [-1]}
+
+# Chose model 
+clf = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+clf.fit(X, y)
 
 with open("final_models.p", "w") as f:
 	pickle.dump(models, f)
+
+# take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
+#df_elab = df2.copy()
+#df_elab['Elaboration'] = (y == 0)
+#y_elab = df_elab['Elaboration'] # y_elab = vector with binary labels (1 for elab., 0 for other)
+
+#models = {}
+#for rel in range(6):
+#	print(rel)
+	# take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
+#	df_elab = df2.copy()
+#	y_target_binary = (y == rel)
+	
+	# Split into training and test set (e.g., 80/20)
+#	X_train, X_test, y_train, y_test = train_test_split(X, y_target_binary, test_size=0.2, random_state=0)
+
+#	param_grid = {"n_estimators":[500], "max_features": [40], "criterion": ["entropy"], "n_jobs": [-1]}
+
+	# Chose model 
+#	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+#	models[rel].fit(X, y_target_binary)
+
+#with open("final_models.p", "w") as f:
+#	pickle.dump(models, f)
 
 # models = pickle.load(open("final_models1.p"))
