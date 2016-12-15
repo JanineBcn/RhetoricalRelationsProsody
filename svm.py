@@ -21,7 +21,7 @@ from scipy import interp
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/small_matriz.csv', index_col=0)
+	df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
@@ -92,14 +92,14 @@ for i in y.value_counts():
 	print(100*(float(i)/float(total)))
 
 # Binarize the output
-y = label_binarize(y, classes=[0,1,2,3,4,5])
+y = label_binarize(y, classes=[0,1,2,3,4,5,6,7,8,9,10,11])
 n_classes = y.shape[1]
 	
 # Split into training and test set (e.g., 80/20)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=0)
 
 # Learn to predict each class against the other
-clf = OneVsRestClassifier(svm.SVC(kernel='linear', probability=True, verbose = 3))
+clf = OneVsRestClassifier(svm.SVC(kernel='linear', probability=True, verbose = 1))
 
 y_score = clf.fit(X_train, y_train).decision_function(X_test)
 

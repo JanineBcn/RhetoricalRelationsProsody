@@ -16,11 +16,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, roc_curve, auc
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import label_binarize
-
+from sklearn.multiclass import OneVsRestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
+	df = pd.read_csv('data/small_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
@@ -106,11 +106,21 @@ n_classes = y.shape[1]
 # Split into training and test set (e.g., 80/20)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-param_grid = {"n_estimators":[500], "max_features": [40], "criterion": ["entropy"], "n_jobs": [-1]}
+param_grid = {
+	"estimator__n_estimators": [5], 
+	"estimator__max_features": [40], 
+	"estimator__criterion": ["entropy"], 
+	"estimator__n_jobs": [-1]
+}
 
-# Chose model 
-clf = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
-clf.fit(X, y)
+# Chose model
+
+one_vs_rest = OneVsRestClassifier(RandomForestClassifier())
+
+clf = GridSearchCV(one_vs_rest, param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+clf.fit(X_train, y_train)
+
+# TO DO: final testing of results with x_test...
 
 with open("final_models.p", "w") as f:
 	pickle.dump(models, f)
