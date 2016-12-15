@@ -20,17 +20,10 @@ from sklearn.multiclass import OneVsRestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/small_matriz.csv', index_col=0)
+	df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
 	return df
 
 df = get_data()
-
-# head and tail
-print('* df.head()', df.head(), sep='\n', end='\n\n')
-print('* df.head()', df.head(), sep='\n', end='\n\n')
-
-# use pandas to show the relation types
-print('* relation types:', df['parent_rel_EDU1'].unique(), sep='\n')
 
 # delete unnecessary columns with strings and other irrelevant information
 del df['spk_EDU1']
@@ -71,11 +64,6 @@ def encode_target(df, target_column):
 
 # show name and target column
 df2, targets = encode_target(df, 'parent_rel_EDU1')
-print('* df2.head()', df2[['Target', 'parent_rel_EDU1']].head(),
-      sep="\n", end='\n\n')
-print('* df2.tail()', df2[['Target', 'parent_rel_EDU1']].tail(),
-      sep='\n', end='\n\n')
-print('* targets', targets, sep='\n', end='\n\n')
 
 # get the names of the feature columns
 features = list(df2.columns[7:])
@@ -86,9 +74,13 @@ y = df2['Target'] #target
 X = df2[features] #data
 
 total = y.shape[0]
-print(y.value_counts())
-for i in y.value_counts():
-	print(100*(float(i)/float(total)))
+counts = y.value_counts()
+counts.sort_index(0, inplace=True)
+
+freq = y.value_counts(normalize=True)
+freq.sort_index(0, inplace=True)
+
+print(pd.DataFrame({'counts': counts, 'frequency': freq}))
 
 
 #array(['contrast', 'elaboration_LeftToRight', 'attribution_RightToLeft',
@@ -107,8 +99,8 @@ n_classes = y.shape[1]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 param_grid = {
-	"estimator__n_estimators": [5], 
-	"estimator__max_features": [40], 
+	"estimator__n_estimators": [500], 
+	"estimator__max_features": range(5, 100, 5), 
 	"estimator__criterion": ["entropy"], 
 	"estimator__n_jobs": [-1]
 }
@@ -117,36 +109,11 @@ param_grid = {
 
 one_vs_rest = OneVsRestClassifier(RandomForestClassifier())
 
-clf = GridSearchCV(one_vs_rest, param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+clf = GridSearchCV(one_vs_rest, param_grid=param_grid, cv=10
+	, scoring='roc_auc', verbose = 3)
 clf.fit(X_train, y_train)
 
 # TO DO: final testing of results with x_test...
 
 with open("final_models.p", "w") as f:
 	pickle.dump(models, f)
-
-# take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
-#df_elab = df2.copy()
-#df_elab['Elaboration'] = (y == 0)
-#y_elab = df_elab['Elaboration'] # y_elab = vector with binary labels (1 for elab., 0 for other)
-
-#models = {}
-#for rel in range(6):
-#	print(rel)
-	# take y, create a new variable y_elab, when value in y equals elaboration, put 1 in elab, when not, 0
-#	df_elab = df2.copy()
-#	y_target_binary = (y == rel)
-	
-	# Split into training and test set (e.g., 80/20)
-#	X_train, X_test, y_train, y_test = train_test_split(X, y_target_binary, test_size=0.2, random_state=0)
-
-#	param_grid = {"n_estimators":[500], "max_features": [40], "criterion": ["entropy"], "n_jobs": [-1]}
-
-	# Chose model 
-#	models[rel] = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
-#	models[rel].fit(X, y_target_binary)
-
-#with open("final_models.p", "w") as f:
-#	pickle.dump(models, f)
-
-# models = pickle.load(open("final_models1.p"))
