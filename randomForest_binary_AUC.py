@@ -20,8 +20,8 @@ from sklearn.multiclass import OneVsRestClassifier
 
 # get data from absolute path
 def get_data():
-	df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
-	return df
+    df = pd.read_csv('data/small_matriz.csv', index_col=0)
+    return df
 
 df = get_data()
 
@@ -42,25 +42,25 @@ del df['nwords_EDU2']
 # write function and return modified data frame and list of class names
 # maps target names to numbers according to the order they appear in df
 def encode_target(df, target_column):
-	"""Add column to df with integers for the target.
+    """Add column to df with integers for the target.
 
-	Args
-	----
-	df -- pandas DataFrame.
-	target_column -- column to map to int, producing
-		     new Target column.
+    Args
+    ----
+    df -- pandas DataFrame.
+    target_column -- column to map to int, producing
+             new Target column.
 
-	Returns
-	-------
-	df_mod -- modified DataFrame.
-	targets -- list of target names.
-	"""
-	df_mod = df.copy()
-	targets = df_mod[target_column].unique()
-	map_to_int = {name: n for n, name in enumerate(targets)} #???
-	df_mod['Target'] = df_mod[target_column].replace(map_to_int)
-	
-	return (df_mod, targets)
+    Returns
+    -------
+    df_mod -- modified DataFrame.
+    targets -- list of target names.
+    """
+    df_mod = df.copy()
+    targets = df_mod[target_column].unique()
+    map_to_int = {name: n for n, name in enumerate(targets)} #???
+    df_mod['Target'] = df_mod[target_column].replace(map_to_int)
+    
+    return (df_mod, targets)
 
 # show name and target column
 df2, targets = encode_target(df, 'parent_rel_EDU1')
@@ -98,22 +98,32 @@ n_classes = y.shape[1]
 # Split into training and test set (e.g., 80/20)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-param_grid = {
-	"estimator__n_estimators": [500], 
-	"estimator__max_features": range(5, 100, 5), 
-	"estimator__criterion": ["entropy"], 
-	"estimator__n_jobs": [-1]
-}
+# param_grid = {
+#   "estimator__n_estimators": [500], 
+#   "estimator__max_features": range(5, 100, 5), 
+#   "estimator__criterion": ["entropy"], 
+#   "estimator__n_jobs": [-1]
+#}
+
 
 # Chose model
 
-one_vs_rest = OneVsRestClassifier(RandomForestClassifier())
+clf = OneVsRestClassifier(RandomForestClassifier(n_estimators=500, max_features="sqrt", criterion="entropy", n_jobs=-1, verbose=3))
 
-clf = GridSearchCV(one_vs_rest, param_grid=param_grid, cv=10
-	, scoring='roc_auc', verbose = 3)
+#clf = GridSearchCV(one_vs_rest, param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
 clf.fit(X_train, y_train)
 
-# TO DO: final testing of results with x_test...
+scores = []
+for i in len(clf.estimators_):
+    
+    random_forest = clf.estimators_[i]
+    y_pred = random_forest.predict(X_test) # tomar x_test y comparar y_pred con y_test
+    scores.append(roc_auc_score(y_test[:,i], y_pred))
+
+print scores
+
+cv_score = cross_val_score(clf, X, y, cv=10, scoring="roc_auc_score")
+print cv_score
 
 with open("final_models.p", "w") as f:
-	pickle.dump(models, f)
+    pickle.dump(models, f)
