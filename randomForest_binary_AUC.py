@@ -114,16 +114,16 @@ clf = OneVsRestClassifier(RandomForestClassifier(n_estimators=500, max_features=
 clf.fit(X_train, y_train)
 
 scores = []
-for i in len(clf.estimators_):
+for i in range(len(clf.estimators_)):
     
     random_forest = clf.estimators_[i]
     y_pred = random_forest.predict(X_test) # tomar x_test y comparar y_pred con y_test
     scores.append(roc_auc_score(y_test[:,i], y_pred))
 
-print scores
+print(scores)
 
-cv_score = cross_val_score(clf, X, y, cv=10, scoring="roc_auc_score")
-print cv_score
+cv_score = cross_val_score(clf, X, y, cv=10, scoring="roc_auc")
+print(cv_score)
 
 with open("final_models.p", "w") as f:
     pickle.dump(models, f)
