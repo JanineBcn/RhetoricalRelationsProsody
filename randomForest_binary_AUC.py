@@ -20,7 +20,7 @@ from sklearn.multiclass import OneVsRestClassifier
 
 # get data from absolute path
 def get_data():
-    df = pd.read_csv('data/small_matriz.csv', index_col=0)
+    df = pd.read_csv('data/small_limited_matriz.csv', index_col=0)
     return df
 
 df = get_data()
@@ -98,32 +98,48 @@ n_classes = y.shape[1]
 # Split into training and test set (e.g., 80/20)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-# param_grid = {
-#   "estimator__n_estimators": [500], 
-#   "estimator__max_features": range(5, 100, 5), 
-#   "estimator__criterion": ["entropy"], 
-#   "estimator__n_jobs": [-1]
-#}
+param_grid = {
+   "estimator__n_estimators": [50, 100], 
+   "estimator__max_features": [15, 30, 45, 60, 75], 
+   "estimator__criterion": ["entropy"], 
+   "estimator__n_jobs": [-1]
+}
 
 
 # Chose model
 
-clf = OneVsRestClassifier(RandomForestClassifier(n_estimators=500, max_features="sqrt", criterion="entropy", n_jobs=-1, verbose=3))
-
-#clf = GridSearchCV(one_vs_rest, param_grid=param_grid, cv=10, scoring='roc_auc', verbose = 3)
+#clf = OneVsRestClassifier(RandomForestClassifier(n_estimators=500, max_features="sqrt", criterion="entropy", n_jobs=-1, verbose=3))
+clf = GridSearchCV(OneVsRestClassifier(RandomForestClassifier()), param_grid=param_grid, scoring='roc_auc', cv=10, verbose = 3)
 clf.fit(X_train, y_train)
 
-scores = []
-for i in range(len(clf.estimators_)):
-    
-    random_forest = clf.estimators_[i]
-    y_pred = random_forest.predict(X_test) # tomar x_test y comparar y_pred con y_test
-    scores.append(roc_auc_score(y_test[:,i], y_pred))
+with open("best_model_of_grid_search.p", "w") as f:
+    pickle.dump(clf.best_estimator_, f)
+# Para abrir esto:
+# with open("best_model_of_grid_search.p", "r") as f:
+#    best_classifier = pickle.load(f)
+# Para mirar uno de los clasificadores dentro del OvsRest classifier:
+#   best_classifier.estimators_[0]
 
-print(scores)
 
-cv_score = cross_val_score(clf, X, y, cv=10, scoring="roc_auc")
-print(cv_score)
 
-with open("final_models.p", "w") as f:
-    pickle.dump(models, f)
+
+
+
+
+
+# score = clf.score(X_test, y_test)
+
+#scores = []
+#for i in range(len(clf.estimators_)):
+#   
+#    random_forest = clf.estimators_[i]
+#    y_pred = random_forest.predict(X_test) # tomar x_test y comparar y_pred con y_test
+#    scores.append(roc_auc_score(y_test[:,i], y_pred))
+
+#print(scores)
+
+#cv_score = cross_val_score(clf, X, y, cv=10, scoring="roc_auc")
+#print(cv_score)
+
+# with open("final_models.p", "w") as f:
+    # pickle.dump(models, f)
