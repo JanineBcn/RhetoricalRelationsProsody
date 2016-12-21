@@ -102,7 +102,7 @@ with open("best_params_by_grid_search.p", "r") as f:
     best_params = pickle.load(f)
 
 modified_param_grid = {}
-for key in param_grid:
+for key in best_params:
     new_param = key
     new_param = new_param.replace("estimator__", "")
     modified_param_grid[new_param] = modified_param_grid.get(key)
