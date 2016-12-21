@@ -115,10 +115,13 @@ classifiers.fit(X_train, y_train)
 res_for_classifier = []
 for i, clf in enumerate(classifiers.estimators_):
     y_test_for_this_classier = y_test[i]
+    print i
     accuracy = clf.score(X_test, y_test_for_this_classier)
+    print accuracy
     y_predicted_labels = clf.predict(X_test)
     y_predicted_scores = clf.predict_probas(X_test)
     auc_roc = roc_auc_score(y_true=y_test_for_this_classier, y_score=y_predicted_scores)
+    print auc_roc
     importances = clf.feature_importances_
 
     res_for_classifier.append(dict(classifier=clf, classifier_number=i, accuracy=accuracy, auc_roc=auc_roc, importances=importances))
