@@ -20,7 +20,7 @@ from sklearn.multiclass import OneVsRestClassifier
 
 # get data from absolute path
 def get_data():
-    df = pd.read_csv('data/limited_matriz.csv', index_col=0)
+    df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
     return df
 
 df = get_data()
@@ -101,8 +101,15 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 with open("best_params_by_grid_search.p", "r") as f:
     best_params = pickle.load(f)
 
-classifiers = OneVsRestClassifier(RandomForestClassifier(**best_params))
-print classifiers
+modified_param_grid = {}
+for key in param_grid:
+    new_param = key
+    new_param = new_param.replace("estimator__", "")
+    modified_param_grid[new_param] = modified_param_grid.get(key)
+
+classifiers = OneVsRestClassifier(RandomForestClassifier(**modified_param_grid))
+#classifiers = OneVsRestClassifier(RandomForestClassifier(n_estimators=500, max_features=125, n_jobs=-1, criterion='entropy'))
+print(classifiers)
 
 classifiers.fit(X_train, y_train)
 
@@ -120,3 +127,4 @@ for i, clf in enumerate(classifiers.estimators_):
 
 with open("results_for_classiers.p", "w") as f:
     pickle.dump(res_for_classifier, f)
+
