@@ -105,8 +105,8 @@ modified_param_grid = {}
 for key in best_params:
     new_param = key.replace("estimator__", "")
     modified_param_grid[new_param] = best_params.get(key)
+classifiers = OneVsRestClassifier(RandomForestClassifier(verbose=3, **modified_param_grid))
 
-classifiers = OneVsRestClassifier(RandomForestClassifier(**modified_param_grid, verbose=3))
 #classifiers = OneVsRestClassifier(RandomForestClassifier(n_estimators=500, max_features=125, n_jobs=-1, criterion='entropy'))
 print(classifiers)
 
