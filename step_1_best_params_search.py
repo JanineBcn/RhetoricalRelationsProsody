@@ -20,7 +20,7 @@ from sklearn.multiclass import OneVsRestClassifier
 
 # get data from absolute path
 def get_data():
-    df = pd.read_csv('data/small_limited_matriz.csv', index_col=0)
+    df = pd.read_csv('data/limited_rel_matriz.csv', index_col=0)
     return df
 
 df = get_data()
@@ -93,6 +93,8 @@ print(pd.DataFrame({'counts': counts, 'frequency': freq}))
 
 # Binarize the output
 y = label_binarize(y, classes=[0,1,2,3,4,5,6,7,8,9,10,11])
+
+
 n_classes = y.shape[1]
 
 # Split into training and test set (e.g., 80/20)
