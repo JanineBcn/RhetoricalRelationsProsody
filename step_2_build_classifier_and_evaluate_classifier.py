@@ -121,7 +121,7 @@ for i, clf in enumerate(classifiers.estimators_):
     print(accuracy)
     y_predicted_labels = clf.predict(X_test)
     y_predicted_scores = clf.predict_proba(X_test)
-    auc_roc = roc_auc_score(y_true=y_test_for_this_classier, y_score=y_predicted_scores)
+    auc_roc = roc_auc_score(y_true=y_test_for_this_classier, y_score=y_predicted_scores[:,i])
     print(auc_roc)
     importances = clf.feature_importances_
 
